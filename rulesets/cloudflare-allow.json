@@ -1,0 +1,66 @@
+[
+  {
+    "id": 900001,
+    "priority": 10000,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "requestDomains": [
+        "challenges.cloudflare.com",
+        "cloudflare.com",
+        "cloudflareinsights.com",
+        "cf-assets.com",
+        "turnstile.cloudflare.com"
+      ],
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame",
+        "script",
+        "xmlhttprequest",
+        "image",
+        "stylesheet",
+        "font",
+        "other",
+        "websocket",
+        "ping"
+      ]
+    }
+  },
+  {
+    "id": 900002,
+    "priority": 10000,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cloudflare.com/cdn-cgi/",
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame",
+        "script",
+        "xmlhttprequest",
+        "image",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 900003,
+    "priority": 10000,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/cdn-cgi/challenge-platform/",
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame",
+        "script",
+        "xmlhttprequest",
+        "image",
+        "other"
+      ]
+    }
+  }
+]

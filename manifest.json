@@ -1,0 +1,193 @@
+{
+  "manifest_version": 3,
+  "name": "MeMik",
+  "version": "1.6.0",
+  "description": "MeMik \u2014 privacy tools, media helper, automation, temp mail, and proxy unblock.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "alarms",
+    "clipboardWrite",
+    "proxy",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "webNavigation",
+    "privacy",
+    "declarativeNetRequestFeedback",
+    "webRequest",
+    "webRequestAuthProvider",
+    "downloads"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "MeMik",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content/anti-main.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "background/allowlist.js",
+        "content/adblock-page.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "background/automation-policy.js",
+        "content/content.js",
+        "content/temp-mail-page.js",
+        "content/security-scan.js",
+        "content/media-detect.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "js": [
+        "content/captcha-main.js"
+      ],
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "js": [
+        "content/captcha-frame.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/icon-16.png",
+        "icons/icon-32.png",
+        "icons/logo.svg"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "extra-trackers",
+        "enabled": true,
+        "path": "rulesets/extra-trackers.json"
+      },
+      {
+        "id": "easylist",
+        "enabled": true,
+        "path": "rulesets/easylist.json"
+      },
+      {
+        "id": "easyprivacy",
+        "enabled": true,
+        "path": "rulesets/easyprivacy.json"
+      },
+      {
+        "id": "community-filters",
+        "enabled": true,
+        "path": "rulesets/community-filters.json"
+      },
+      {
+        "id": "security-filters",
+        "enabled": true,
+        "path": "rulesets/security-filters.json"
+      },
+      {
+        "id": "pgl",
+        "enabled": true,
+        "path": "rulesets/pgl.json"
+      },
+      {
+        "id": "annoyances-overlays",
+        "enabled": true,
+        "path": "rulesets/annoyances-overlays.json"
+      },
+      {
+        "id": "annoyances-others",
+        "enabled": true,
+        "path": "rulesets/annoyances-others.json"
+      },
+      {
+        "id": "annoyances-notifications",
+        "enabled": true,
+        "path": "rulesets/annoyances-notifications.json"
+      },
+      {
+        "id": "extra-ads",
+        "enabled": true,
+        "path": "rulesets/extra-ads.json"
+      },
+      {
+        "id": "anti-adblock",
+        "enabled": true,
+        "path": "rulesets/anti-adblock.json"
+      },
+      {
+        "id": "superadblock-hosts",
+        "enabled": true,
+        "path": "rulesets/superadblock-hosts.json"
+      },
+      {
+        "id": "cloudflare-allow",
+        "enabled": true,
+        "path": "rulesets/cloudflare-allow.json"
+      }
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
